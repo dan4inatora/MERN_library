@@ -26,19 +26,33 @@ module.exports.register = (req, res, next) => {
 }
 
 module.exports.login = async(req, res, next) => {
-    passport.authenticate('local', async(err, user, info) => {
+    await passport.authenticate('local', {session : true}, async(err, user, info) => {
         if(err) {
             return res.status(400).json(err);
         }
         else if(user){
-            const token = await user.generateJwt();
-            return res.send({token})
+            try{
+                await req.logIn(user, err => {
+                    if(err){
+                        return next(err);
+                    }
+                })
+                console.log(req.session);
+                return res.status(200).send({user});
+            }
+            catch(err){
+                return next(err);
+            }
         }
         else{
             return res.status(404).json(info);
         }
-    })(req, res);
+    })(req, res, next);
 }
+
+  
+
+
 
 
 

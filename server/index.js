@@ -7,10 +7,39 @@ const routesIndex = require('./routes/index_router')
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const redis = require('redis');
 const passport = require('passport');
+const session = require('express-session');
+const redisStore = require('connect-redis')(session);
+const client = redis.createClient({ host: 'localhost', port: 6379 });
+const bodyParser = require('body-parser');
 
-app.use(express.json());
-app.use(passport.initialize());
+
+client.on('error', function (err) {
+    console.log('could not establish a connection with redis. ' + err);
+  });
+  
+  client.on('connect', function () {
+    console.log('connected to redis successfully');
+  });
+
+
+app.use(bodyParser.json())
+    .use('/', session({
+        name: '_redisDemo', 
+        secret: process.env.SESH_SECRET,
+        resave: false,
+        saveUninitialized: false,
+        rolling: true,
+        store: new redisStore({client}),
+        cookie: { maxAge: 60000 } // Set to secure:false and expire in 1 minute for demo purposes
+ 
+  }))
+  .use(passport.initialize())
+  .use(passport.session())
+  .set('json spaces', 2);
+
+
 app.use('/', routesIndex);
 
 //global error handler

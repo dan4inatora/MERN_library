@@ -4,8 +4,18 @@ const mongoose = require('mongoose');
 
 let User = require('../models/usersmodel');
 
-passport.use(
-    new localStrategy({usernameField: 'email'},
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  User.findById(id, function(err, user) {
+    done(null, user);
+  });
+});
+
+passport.use('local',
+    new localStrategy({usernameField: 'email', passwordField: 'password'},
          (username, password, done) => {
             User.findOne({email:username},
                 async (err, user) => {
@@ -17,12 +27,3 @@ passport.use(
         })
 );
 
-passport.serializeUser((user, done) => {
-    done(null, user.id);
-  });
-  
-  passport.deserializeUser((id, done) => {
-    User.findById(id, function(err, user) {
-      done(err, user);
-    });
-  });
