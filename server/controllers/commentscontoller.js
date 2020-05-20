@@ -6,7 +6,6 @@ module.exports.comment = (req, res, next) => {
     console.log(req.user);
     const {title, text} = req.body;
     const comment = new Comment();
-    console.log(req.user);
     comment.sender = req.user.name;
     comment.title = title;
     comment.text = text;
