@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Author = require("../models/authormodel");
 const Book = require('../models/booksmodel');
 
-module.exports.getAuthor = (req, res, next) => {
+module.exports.getAuthors = (req, res, next) => {
   Author.find({}, function(err, data) {
     if (err) {
       res.status(404).send(err);

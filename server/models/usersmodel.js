@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const {Book, bookSchema} = require("./booksmodel");
 //const jwt = require("jsonwebtoken");
 
 const userSchema = new mongoose.Schema({
@@ -21,6 +22,9 @@ const userSchema = new mongoose.Schema({
     required: "Password can't be empty",
     minlength: [6, "Password should be at least 6 characters"]
   },
+  wishlist: [{
+    type: bookSchema 
+  }],
   isAdmin: {
     type: Boolean
   }

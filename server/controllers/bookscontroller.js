@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Book = require("../models/booksmodel");
+const upload = require("../middleware/multerService");
 
 
 module.exports.getBooks = (req, res, next) => {
@@ -33,17 +34,31 @@ module.exports.getBookByName = (req, res, next) => {
 }
 
 module.exports.createBook = (req, res, next) => {
-  const {name, descriprion,author_id} = req.body;
-  const book = new Book();
-  book.name = name;
-  book.descriprion = descriprion;
-  book.author_id = author_id;
-  book.save((err, doc) => {
-    if(!err){
-      res.send(doc);
+  upload(req, res, (err) => {
+    if(err){
+      res.send(err);
+    } 
+    else {
+      if(req.file == undefined){
+        res.send( 'Error: No File Selected!');
+      } 
+      else {
+        console.log(req.file);
+        res.send(req.file.path);
+      }
     }
-    else{
-      res.status(500).send(err);
-    }
-  })
+  });
+  // const {name, descriprion,author_id} = req.body;
+  // const book = new Book();
+  // book.name = name;
+  // book.descriprion = descriprion;
+  // book.author_id = author_id;
+  // book.save((err, doc) => {
+  //   if(!err){
+  //     res.send(doc);
+  //   }
+  //   else{
+  //     res.status(500).send(err);
+  //   }
+  // })
 }

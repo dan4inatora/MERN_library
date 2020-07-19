@@ -2,6 +2,7 @@ require("dotenv").config();
 require("./models/db");
 require("./config/passportConfig");
 const routesIndex = require("./routes/index_router");
+const routesBook = require('./routes/books_router');
 
 const express = require("express");
 const app = express();
@@ -21,6 +22,9 @@ client.on("connect", function() {
   console.log("connected to redis successfully");
 });
 
+//Static files
+app.use(express.static('./uploads'));
+
 app
   .use(express.json())
   .use(
@@ -39,6 +43,8 @@ app
   .use(passport.session());
 
 app.use("/", routesIndex);
+app.use("/", routesBook);
+
 
 //global error handler
 app.use((err, req, res, next) => {

@@ -4,8 +4,8 @@ const authorSchema = new mongoose.Schema({
   name:{
     type: String
   },
-  books : [{
-    type: Schema.Types.ObjectId,
+  books_id : [{
+    type: mongoose.Schema.Types.ObjectId,
     ref : "Book"
   }]
 })

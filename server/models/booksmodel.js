@@ -11,11 +11,22 @@ const bookSchema = new mongoose.Schema({
     type: Number,
     default : []
   }],
-  authot_id : {
+  author_id : {
     type: mongoose.Schema.Types.ObjectId,
     ref : "Author"
-  }
+  },
+  imagePath: { 
+    type: String, 
+    required: true 
+  },
+  comments_id : [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref : "Comment"
+  }]
 })
 
 const Book = mongoose.model("Book", bookSchema);
-module.exports = Book;
+module.exports = {
+  Book : Book,
+  bookSchema : bookSchema
+}
