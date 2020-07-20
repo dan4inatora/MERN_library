@@ -3,6 +3,7 @@ require("./models/db");
 require("./config/passportConfig");
 const routesIndex = require("./routes/index_router");
 const routesBook = require('./routes/books_router');
+const routesAuthor = require('./routes/author_router');
 
 const express = require("express");
 const app = express();
@@ -44,6 +45,7 @@ app
 
 app.use("/", routesIndex);
 app.use("/", routesBook);
+app.use("/", routesAuthor);
 
 
 //global error handler

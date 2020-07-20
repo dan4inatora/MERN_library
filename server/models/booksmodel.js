@@ -9,7 +9,7 @@ const bookSchema = new mongoose.Schema({
   },
   rating: [{
     type: Number,
-    default : []
+    default : [0]
   }],
   author_id : {
     type: mongoose.Schema.Types.ObjectId,

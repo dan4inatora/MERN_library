@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Book = require("../models/booksmodel");
+const {Book, bookSchema} = require("../models/booksmodel");
 const upload = require("../middleware/multerService");
 
 
@@ -44,21 +44,36 @@ module.exports.createBook = (req, res, next) => {
       } 
       else {
         console.log(req.file);
-        res.send(req.file.path);
+        //Author id should be a valid ID for mongoose
+        //res.send(req.file.path);
+        const {name, descriprion,author_id} = req.body;
+        const book = new Book();
+        book.name = name;
+        book.descriprion = descriprion;
+        //book.author_id = new mongoose.Types.ObjectId;
+        book.author_id = author_id;
+        book.imagePath = req.file.path;
+        book.save((err, doc) => {
+          if(!err){
+            res.send(doc);
+          }
+          else{
+            res.status(500).send(err);
+          }
+        })
       }
     }
   });
-  // const {name, descriprion,author_id} = req.body;
-  // const book = new Book();
-  // book.name = name;
-  // book.descriprion = descriprion;
-  // book.author_id = author_id;
-  // book.save((err, doc) => {
-  //   if(!err){
-  //     res.send(doc);
-  //   }
-  //   else{
-  //     res.status(500).send(err);
-  //   }
-  // })
+
+}
+
+module.exports.deleteBook = (req, res, next) => {
+  const {id} = req.body;
+  Book.deleteOne({_id:id}, function (err, data) {
+    if (err) res.send(err);
+    else{
+      res.send(data);
+    }
+  });
+    
 }

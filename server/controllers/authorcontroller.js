@@ -56,3 +56,15 @@ module.exports.createAuthor = (req, res, next) => {
   })
     
 }
+
+module.exports.deleteAuthor = (req, res, next) => {
+  const {id} = req.body;
+  Author.deleteOne({_id:id}, function (err, data) {
+    if (err) res.send(err);
+    else{
+      res.send(data);
+    }
+  });
+    
+}
+
