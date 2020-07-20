@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const {Book, bookSchema} = require("../models/booksmodel");
 const upload = require("../middleware/multerService");
+const crudDelete = require('../services/deleteService');
+const modelTypes = require('../helpers/modelTypes');
 
 
 module.exports.getBooks = (req, res, next) => {
@@ -68,12 +70,5 @@ module.exports.createBook = (req, res, next) => {
 }
 
 module.exports.deleteBook = (req, res, next) => {
-  const {id} = req.body;
-  Book.deleteOne({_id:id}, function (err, data) {
-    if (err) res.send(err);
-    else{
-      res.send(data);
-    }
-  });
-    
+  crudDelete(req, res, next, modelTypes.Book) 
 }

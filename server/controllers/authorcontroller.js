@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Author = require("../models/authormodel");
 const Book = require('../models/booksmodel');
+const crudDelete = require('../services/deleteService');
+const modelTypes = require('../helpers/modelTypes');
 
 module.exports.getAuthors = (req, res, next) => {
   Author.find({}, function(err, data) {
@@ -58,13 +60,6 @@ module.exports.createAuthor = (req, res, next) => {
 }
 
 module.exports.deleteAuthor = (req, res, next) => {
-  const {id} = req.body;
-  Author.deleteOne({_id:id}, function (err, data) {
-    if (err) res.send(err);
-    else{
-      res.send(data);
-    }
-  });
-    
+  crudDelete(req, res, next, modelTypes.Author)    
 }
 
