@@ -1,10 +1,8 @@
 require("dotenv").config();
 require("./models/db");
 require("./config/passportConfig");
-const routesIndex = require("./routes/index_router");
-const routesBook = require('./routes/books_router');
-const routesAuthor = require('./routes/author_router');
-const routesAdmin = require('./routes/adminCRUD_router');
+const routesIndex = require("./routes/mainRouter");
+
 
 const express = require("express");
 const app = express();
@@ -45,10 +43,6 @@ app
   .use(passport.session());
 
 app.use("/", routesIndex);
-app.use("/", routesBook);
-app.use("/", routesAuthor);
-app.use("/", routesAdmin);
-
 
 //global error handler
 app.use((err, req, res, next) => {

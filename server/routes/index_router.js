@@ -1,20 +1,18 @@
 const userController = require('../controllers/usercontroller');
-const commentscontoller = require('../controllers/commentscontoller');
 const auth = require('../middleware/authenticate')
-const authAdmin = require('../middleware/isAdmin')
 const express = require('express');
 const router = express.Router();
 
-router.post('/register', userController.register);
-router.post('/login', userController.login);
-router.post('/edit', authAdmin.isAdmin , userController.edit);
-router.post('/logout' , userController.logout);
-router.get('/userProfile' , userController.userProfile);
-router.post('/addCommentToBook/:bookId' , userController.addCommentToBook);
-router.post('/addRating/:bookId' , userController.addRating);
-router.get('/addToWishList/:bookId' , userController.addBookToWishList);
-router.get('/removeFromWishList/:bookId' , userController.removeBookToWishList);
-router.get('/wishList' , userController.getWishList);
+router.post('/register', auth.isAuthenticated, userController.register);
+router.post('/login', auth.isAuthenticated ,userController.login);
+router.post('/edit', auth.isAuthenticated , userController.edit);
+router.post('/logout' , auth.isAuthenticated, userController.logout);
+router.get('/userProfile' , auth.isAuthenticated, userController.userProfile);
+router.post('/addCommentToBook/:bookId' , auth.isAuthenticated, userController.addCommentToBook);
+router.post('/addRating/:bookId' , auth.isAuthenticated,  userController.addRating);
+router.get('/addToWishList/:bookId' , auth.isAuthenticated, userController.addBookToWishList);
+router.get('/removeFromWishList/:bookId' , auth.isAuthenticated, userController.removeBookToWishList);
+router.get('/wishList' , auth.isAuthenticated, userController.getWishList);
 
 
 module.exports = router;

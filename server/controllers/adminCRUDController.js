@@ -77,4 +77,20 @@ module.exports.removeComment = (req, res, next) => {
   )
 }
 
+module.exports.editBook = async (req, res, next) => {
+  const{name, description, authorId} = req.body;
+  const bookId = req.params.bookId;
+  modelTypes.Book.findOne({_id:bookId}, async function(err, book) {
+    if (err) {
+      res.status(404).send(err);
+    } else {
+      book.name = name === '' ? book.name : name;
+      book.description = description === '' ? book.description : description;
+      book.author_id = authorId === '' ? book.author_id : authorId;
+      await book.save()
+      res.send(book);
+    }
+  })
+}
+
 
