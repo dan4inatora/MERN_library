@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const {Book, bookSchema} = require("../models/booksmodel");
-const {Author} = require("../models/authormodel");
+const Author = require("../models/authormodel")
 const upload = require("../middleware/multerService");
 const crudDelete = require('../services/deleteService');
 const modelTypes = require('../helpers/modelTypes');
@@ -37,11 +37,12 @@ module.exports.getBookByName = (req, res, next) => {
 }
 
 module.exports.getBookAuthor = (req, res, next) => {
-  Book.findOne({name:req.params.name}, function(err, data) {
+  Book.findOne({_id:req.params.id}, async function(err, data) {
     if (err) {
       return res.status(404).send(err);
     } else {
-      Author.findOne({_id : data.author_id}, function(err, author){
+      console.log(data.author_id);
+      await Author.findOne({_id : data.author_id}, function(err, author){
         if (err) {
           return res.status(404).send(err);
         }
