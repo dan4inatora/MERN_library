@@ -14,6 +14,7 @@ router.post('/addCommentToBook/:bookId' , userController.addCommentToBook);
 router.post('/addRating/:bookId' , userController.addRating);
 router.get('/addToWishList/:bookId' , userController.addBookToWishList);
 router.get('/removeFromWishList/:bookId' , userController.removeBookToWishList);
+router.get('/wishList' , userController.getWishList);
 
 
 module.exports = router;

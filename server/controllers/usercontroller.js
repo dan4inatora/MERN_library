@@ -170,3 +170,16 @@ module.exports.removeBookToWishList = async (req, res, next) => {
     }
   )
 };
+
+module.exports.getWishList = async (req, res, next) => {
+  const userId = req.user._id;
+  User.findOne({ _id: userId},
+    (err, user) => {
+        if (!user)
+            return res.status(404).send("User not found");
+        else
+            return res.status(200).send(user.wishlist);
+    }
+);
+
+};
