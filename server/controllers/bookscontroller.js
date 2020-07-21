@@ -5,7 +5,8 @@ const upload = require("../middleware/multerService");
 const crudDelete = require('../services/deleteService');
 const modelTypes = require('../helpers/modelTypes');
 const getAvgRating = require('../services/getAvgRating');
-
+const getComments = require('../services/getCommentsService');
+const getCommentId = require('../services/findCommentIdByUsernameService');
 
 module.exports.getBooks = (req, res, next) => {
   Book.find({}, function(err, data) {
@@ -115,3 +116,42 @@ module.exports.getAvgRating = (req, res, next) => {
     }
   })
 }
+
+module.exports.userDeleteComment = async (req, res, next) => {
+  const bookId = req.params.bookId;
+  const username = req.user.email;
+  const comments = await getComments(bookId);
+  const commentId = getCommentId(comments, username);
+  if(commentId != ''){
+    modelTypes.Book.update(
+      { "_id": bookId },
+      { "$pull": { "comments_id": commentId } },
+      { "multi": true },
+      function(err,status) {
+        if(!err){
+          res.send(status);
+        }
+      }
+    )
+  }
+  else{
+    res.send("No comment linked to that user");
+  }
+
+}
+
+module.exports.userDeleteCommentEasy = async (req, res, next) => {
+  const bookId = req.body.bookId;
+  const commentId = req.body.commentId;
+    modelTypes.Book.update(
+      { "_id": bookId },
+      { "$pull": { "comments_id": commentId } },
+      { "multi": true },
+      function(err,status) {
+        if(!err){
+          res.send(status);
+        }
+      }
+    )
+}
+

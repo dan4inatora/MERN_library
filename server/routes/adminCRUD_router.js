@@ -11,6 +11,6 @@ adminRouter.post('/changeRole', adminCrudController.changeRole);
 adminRouter.post('/addAuthorToBook', adminCrudController.addAuthorToBook);
 adminRouter.post('/addBookToAuthor', adminCrudController.addBookToAuthor);
 adminRouter.post('/removeComment/:bookId', adminCrudController.removeComment);
-adminRouter.post('/getAllComments/:bookId', adminCrudController.getAllComments);
+adminRouter.get('/getAllComments/:bookId', adminCrudController.getAllComments);
 
 module.exports = adminRouter;

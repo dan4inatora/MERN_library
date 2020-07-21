@@ -82,7 +82,7 @@ module.exports.addCommentToBook = async (req, res, next) => {
   const bookId = req.params.bookId;
   const {title, text} = req.body;
   const comment = new Comment();
-  comment.sender = req.user.name;
+  comment.sender = req.user.email;
   comment.title = title;
   comment.text = text;
   await comment.save((err, doc) => {
