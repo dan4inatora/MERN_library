@@ -55,4 +55,15 @@ module.exports.addBookToAuthor = async(req, res, next) => {
   })
 }
 
+module.exports.getAllComments = async(req, res, next) => {
+  const bookId = req.params.bookId;
+  modelTypes.Book.findOne({_id : bookId}, function(err, book) {
+    if (err) {
+      res.status(404).send(err);
+    } else {
+      res.send(book.comments_id);
+    }
+  })
+}
+
 

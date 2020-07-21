@@ -10,6 +10,7 @@ router.post('/login', userController.login);
 router.post('/edit', authAdmin.isAdmin , userController.edit);
 router.post('/logout' , userController.logout);
 router.get('/userProfile' , userController.userProfile);
+router.post('/addCommentToBook/:bookId' , userController.addCommentToBook);
 
 
 module.exports = router;

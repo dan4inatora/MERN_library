@@ -21,7 +21,8 @@ const bookSchema = new mongoose.Schema({
   },
   comments_id : [{
     type: mongoose.Schema.Types.ObjectId,
-    ref : "Comment"
+    ref : "Comment",
+    default: []
   }]
 })
 

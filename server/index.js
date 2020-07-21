@@ -38,7 +38,7 @@ app
       saveUninitialized: false,
       rolling: true,
       store: new redisStore({ client }),
-      cookie: { maxAge: 60000 } // Set to secure:false and expire in 1 minute for demo purposes
+      cookie: { maxAge: 60 * 60 * 60 } // Set to secure:false and expire in 1 minute for demo purposes
     })
   )
   .use(passport.initialize())
