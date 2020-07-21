@@ -6,6 +6,9 @@ const register = require('../services/registerService');
 const modelTypes = require('../helpers/modelTypes');
 const containsUsername = require('../services/containsUsernameService');
 const changeRating = require('../services/changeRatingForUser');
+const findBookbyId = require('../services/findBookbyIdService');
+const checkIfBookExistst = require('../services/checkIfBookInWishList');
+const { use } = require("passport");
 
 module.exports.register = (req, res, next) => {
   register(req, res, next);
@@ -127,4 +130,43 @@ module.exports.addRating = async (req, res, next) => {
       }
     }
   })
+};
+
+module.exports.addBookToWishList = async (req, res, next) => {
+  const userId = req.user._id;
+  const bookId = req.params.bookId;
+  const book = await findBookbyId(bookId);
+  User.findOne({ _id: userId },
+   async (err, user) => {
+        if (!user)
+            return res.status(404).send("User not found");
+        else{
+            if(!checkIfBookExistst(user.wishlist, bookId)){
+              user.wishlist.push(book);
+              await user.save();
+              return res.send(user);
+            }
+            else{
+              return res.send("Duplicate book");
+            }
+
+        }
+    }
+  );
+};
+
+module.exports.removeBookToWishList = async (req, res, next) => {
+  const userId = req.user._id;
+  const bookId = req.params.bookId;
+  const book = await findBookbyId(bookId);
+  modelTypes.User.update(
+    { "_id": userId },
+    { "$pull": { "wishlist": {"_id" : bookId} } },
+    { "multi": true },
+    function(err,status) {
+      if(!err){
+        res.send(status);
+      }
+    }
+  )
 };
