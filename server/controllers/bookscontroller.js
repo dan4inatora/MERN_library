@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const {Book, bookSchema} = require("../models/booksmodel");
+const {Author} = require("../models/authormodel");
 const upload = require("../middleware/multerService");
 const crudDelete = require('../services/deleteService');
 const modelTypes = require('../helpers/modelTypes');
@@ -16,7 +17,7 @@ module.exports.getBooks = (req, res, next) => {
 }
 
 module.exports.getBookById = (req, res, next) => {
-  Book.find({id:req.body.id}, function(err, data) {
+  Book.findOne({_id:req.params.id}, function(err, data) {
     if (err) {
       res.status(404).send(err);
     } else {
@@ -26,7 +27,7 @@ module.exports.getBookById = (req, res, next) => {
 }
 
 module.exports.getBookByName = (req, res, next) => {
-  Book.find({name:req.body.name}, function(err, data) {
+  Book.findOne({name:req.params.name}, function(err, data) {
     if (err) {
       res.status(404).send(err);
     } else {
@@ -35,14 +36,32 @@ module.exports.getBookByName = (req, res, next) => {
   })
 }
 
+module.exports.getBookAuthor = (req, res, next) => {
+  Book.findOne({name:req.params.name}, function(err, data) {
+    if (err) {
+      return res.status(404).send(err);
+    } else {
+      Author.findOne({_id : data.author_id}, function(err, author){
+        if (err) {
+          return res.status(404).send(err);
+        }
+        else{
+          return res.status(200).send(author);
+        }
+      })
+      
+    }
+  })
+}
+
 module.exports.createBook = (req, res, next) => {
   upload(req, res, (err) => {
     if(err){
-      res.send(err);
+      return res.send(err);
     } 
     else {
       if(req.file == undefined){
-        res.send( 'Error: No File Selected!');
+        return res.send( 'Error: No File Selected!');
       } 
       else {
         console.log(req.file);
@@ -57,10 +76,10 @@ module.exports.createBook = (req, res, next) => {
         book.imagePath = req.file.path;
         book.save((err, doc) => {
           if(!err){
-            res.send(doc);
+            return res.send(doc);
           }
           else{
-            res.status(500).send(err);
+            return res.status(500).send(err);
           }
         })
       }

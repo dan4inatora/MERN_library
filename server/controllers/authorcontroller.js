@@ -3,6 +3,7 @@ const Author = require("../models/authormodel");
 const Book = require('../models/booksmodel');
 const crudDelete = require('../services/deleteService');
 const modelTypes = require('../helpers/modelTypes');
+const findBookbyId = require('../services/findBookbyIdService');
 
 module.exports.getAuthors = (req, res, next) => {
   Author.find({}, function(err, data) {
@@ -15,7 +16,7 @@ module.exports.getAuthors = (req, res, next) => {
 }
 
 module.exports.getAuthorbyId = (req, res, next) => {
-  Author.find({id:req.body.id}, function(err, data) {
+  Author.findOne({_id:req.params.id}, function(err, data) {
     if (err) {
       res.status(404).send(err);
     } else {
@@ -25,7 +26,7 @@ module.exports.getAuthorbyId = (req, res, next) => {
 }
 
 module.exports.getAuthorbyName = (req, res, next) => {
-  Author.find({name:req.body.name}, function(err, data) {
+  Author.findOne({name:req.params.name}, function(err, data) {
     if (err) {
       res.status(404).send(err);
     } else {
@@ -35,12 +36,16 @@ module.exports.getAuthorbyName = (req, res, next) => {
 }
 
 module.exports.getAuthorBooks = (req, res, next) => {
-  Author.find({id:req.body.id}, function(err, data) {
+  Author.findOne({_id:req.params.id}, async function(err, data) {
     if (err) {
-      res.status(404).send(err);
-    } else {
-      const books = data.populate("books");
-      res.send(books);
+      return res.status(404).send(err);
+    } 
+    else {
+      let bookArray = [];
+      for(let i = 0; i < data.books_id.length; i++){
+         bookArray.push(await findBookbyId(data.books_id[i]))
+      }
+      return res.send(bookArray);
     }
   })
 }
