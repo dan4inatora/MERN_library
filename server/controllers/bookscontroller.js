@@ -4,6 +4,7 @@ const Author = require("../models/authormodel")
 const upload = require("../middleware/multerService");
 const crudDelete = require('../services/deleteService');
 const modelTypes = require('../helpers/modelTypes');
+const getAvgRating = require('../services/getAvgRating');
 
 
 module.exports.getBooks = (req, res, next) => {
@@ -91,4 +92,16 @@ module.exports.createBook = (req, res, next) => {
 
 module.exports.deleteBook = (req, res, next) => {
   crudDelete(req, res, next, modelTypes.Book) 
+}
+
+module.exports.getAvgRating = (req, res, next) => {
+  const bookId = req.params.bookId;
+  Book.findOne({_id : bookId}, function(err, book) {
+    if (err) {
+      return res.send(err);
+    }
+    else{
+      return res.send('' + getAvgRating(book.rating));
+    }
+  })
 }

@@ -10,6 +10,7 @@ booksRouter.get('/books' ,booksController.getBooks);
 booksRouter.get('/books/:id' ,booksController.getBookById);
 booksRouter.get('/booksByName/:name' ,booksController.getBookByName);
 booksRouter.get('/bookAuthor/:id' ,booksController.getBookAuthor);
+booksRouter.get('/getAvarage/:bookId' ,booksController.getAvgRating);
 booksRouter.post('/deleteBook' ,booksController.deleteBook);
 
 
