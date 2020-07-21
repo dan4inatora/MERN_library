@@ -10,6 +10,7 @@ adminRouter.post('/changePassword', adminCrudController.changePassword);
 adminRouter.post('/changeRole', adminCrudController.changeRole);
 adminRouter.post('/addAuthorToBook', adminCrudController.addAuthorToBook);
 adminRouter.post('/addBookToAuthor', adminCrudController.addBookToAuthor);
-adminRouter.get('/getAllComments/:bookId', adminCrudController.getAllComments);
+adminRouter.post('/removeComment/:bookId', adminCrudController.removeComment);
+adminRouter.post('/getAllComments/:bookId', adminCrudController.getAllComments);
 
 module.exports = adminRouter;

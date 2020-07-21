@@ -12,6 +12,7 @@ booksRouter.get('/booksByName/:name' ,booksController.getBookByName);
 booksRouter.get('/bookAuthor/:id' ,booksController.getBookAuthor);
 booksRouter.get('/getAvarage/:bookId' ,booksController.getAvgRating);
 booksRouter.post('/deleteBook' ,booksController.deleteBook);
+booksRouter.get('/mostRecent' ,booksController.mostRecent);
 
 
 module.exports = booksRouter;

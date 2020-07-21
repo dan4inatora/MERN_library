@@ -71,4 +71,19 @@ module.exports.getAllComments = async(req, res, next) => {
   })
 }
 
+module.exports.removeComment = (req, res, next) => {
+  const bookId = req.params.bookId;
+  const {commentId} = req.body;
+  modelTypes.Book.update(
+    { "_id": bookId },
+    { "$pull": { "comments_id": commentId } },
+    { "multi": true },
+    function(err,status) {
+      if(!err){
+        res.send(status);
+      }
+    }
+  )
+}
+
 

@@ -94,6 +94,16 @@ module.exports.deleteBook = (req, res, next) => {
   crudDelete(req, res, next, modelTypes.Book) 
 }
 
+module.exports.mostRecent = (req, res, next) => {
+  Book.find({}, function(err, data) {
+    if (err) {
+      res.status(404).send(err);
+    } else {
+      res.send(data);
+    }
+  }).limit(10);
+}
+
 module.exports.getAvgRating = (req, res, next) => {
   const bookId = req.params.bookId;
   Book.findOne({_id : bookId}, function(err, book) {
