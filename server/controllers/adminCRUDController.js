@@ -3,6 +3,7 @@ const register = require('../services/registerService');
 const crudDelete = require('../services/deleteService');
 const modelTypes = require('../helpers/modelTypes');
 const { use } = require("passport");
+const findCommnetById = require('../services/findCommentByIdService');
 
 module.exports.createUser = (req, res, next) => {
   register(req, res, next);
@@ -57,11 +58,15 @@ module.exports.addBookToAuthor = async(req, res, next) => {
 
 module.exports.getAllComments = async(req, res, next) => {
   const bookId = req.params.bookId;
-  modelTypes.Book.findOne({_id : bookId}, function(err, book) {
+  let commentsArray = [];
+  modelTypes.Book.findOne({_id : bookId}, async function(err, book) {
     if (err) {
       res.status(404).send(err);
     } else {
-      res.send(book.comments_id);
+      for(let i = 0; i < book.comments_id.length; i++){
+        commentsArray.push(await findCommnetById(book.comments_id[i]));
+      }
+      res.send(commentsArray);
     }
   })
 }
