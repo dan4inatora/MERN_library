@@ -16,7 +16,7 @@ module.exports.getBooks = (req, res, next) => {
 }
 
 module.exports.getBookById = (req, res, next) => {
-  Book.find({id:req.params.id}, function(err, data) {
+  Book.find({id:req.body.id}, function(err, data) {
     if (err) {
       res.status(404).send(err);
     } else {
@@ -26,7 +26,7 @@ module.exports.getBookById = (req, res, next) => {
 }
 
 module.exports.getBookByName = (req, res, next) => {
-  Book.find({name:req.params.name}, function(err, data) {
+  Book.find({name:req.body.name}, function(err, data) {
     if (err) {
       res.status(404).send(err);
     } else {

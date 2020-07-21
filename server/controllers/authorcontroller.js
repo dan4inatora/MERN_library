@@ -15,7 +15,7 @@ module.exports.getAuthors = (req, res, next) => {
 }
 
 module.exports.getAuthorbyId = (req, res, next) => {
-  Author.find({id:req.params.id}, function(err, data) {
+  Author.find({id:req.body.id}, function(err, data) {
     if (err) {
       res.status(404).send(err);
     } else {
@@ -25,7 +25,7 @@ module.exports.getAuthorbyId = (req, res, next) => {
 }
 
 module.exports.getAuthorbyName = (req, res, next) => {
-  Author.find({name:req.params.name}, function(err, data) {
+  Author.find({name:req.body.name}, function(err, data) {
     if (err) {
       res.status(404).send(err);
     } else {
@@ -35,7 +35,7 @@ module.exports.getAuthorbyName = (req, res, next) => {
 }
 
 module.exports.getAuthorBooks = (req, res, next) => {
-  Author.find({id:req.params.id}, function(err, data) {
+  Author.find({id:req.body.id}, function(err, data) {
     if (err) {
       res.status(404).send(err);
     } else {

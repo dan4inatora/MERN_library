@@ -51,3 +51,26 @@ module.exports.edit = (req, res, next) => {
   });
 };
 
+module.exports.userProfile = (req, res, next) =>{
+  if(req.user === undefined){
+    return res.status(404).send("User not found");
+  }
+  User.findOne({ _id: req.user._id },
+      (err, user) => {
+          if (!user)
+              return res.status(404).send("User not found");
+          else
+              return res.status(200).send(user);
+      }
+  );
+}
+
+
+module.exports.logout = (req, res, next) => {
+  req.logout();
+  req.session.destroy(function (err) {
+    res.send(err); //Inside a callback… bulletproof!
+  });
+  res.clearCookie("_redisDemo");
+};
+
