@@ -4,6 +4,8 @@ const Comment = require("../models/commentmodel");
 const passport = require("passport");
 const register = require('../services/registerService');
 const modelTypes = require('../helpers/modelTypes');
+const containsUsername = require('../services/containsUsernameService');
+const changeRating = require('../services/changeRatingForUser');
 
 module.exports.register = (req, res, next) => {
   register(req, res, next);
@@ -97,6 +99,31 @@ module.exports.addCommentToBook = async (req, res, next) => {
         book.comments_id.push(comment._id);
         await book.save();
         return res.send(book.comments_id);
+      }
+    }
+  })
+};
+
+
+module.exports.addRating = async (req, res, next) => {
+  const bookId = req.params.bookId;
+  const {rating} = req.body;
+  const user = req.user;
+  await modelTypes.Book.findOne({_id : bookId}, async function(err, book) {
+    if (err) {
+      return res.status(404).send(err);
+    } 
+    else {
+      if(book && !containsUsername(book.rating, user.email)){
+        const ratingObj = {rating:rating, username: user.email};
+        book.rating.push(ratingObj);
+        await book.save();
+        return res.send(book);
+      }
+      else{
+        changeRating(book.rating, user.email, rating);
+        await book.save();
+        return res.send(book);
       }
     }
   })

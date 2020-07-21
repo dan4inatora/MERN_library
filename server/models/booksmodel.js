@@ -8,8 +8,8 @@ const bookSchema = new mongoose.Schema({
     type : String
   },
   rating: [{
-    type: Number,
-    default : [0]
+    username: String,
+    rating : Number
   }],
   author_id : {
     type: mongoose.Schema.Types.ObjectId,
