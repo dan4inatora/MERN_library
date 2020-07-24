@@ -42,6 +42,7 @@ app
   .use(passport.initialize())
   .use(passport.session());
 
+app.use(cors());
 app.use("/", routesIndex);
 
 //global error handler
