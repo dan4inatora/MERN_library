@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Login from './components/Login';
+import Login from './components/loginComponent/Login';
 import Register from './components/registerComponent/Register';
 import Navbar from './components/navComponent/Navbar';
 import Dashboard from './components/Dashboard';
@@ -19,8 +19,8 @@ class App extends Component {
         <React.Fragment>
           <Navbar/>
           <Welcome/>
+          <Login/>
           
-          <Register/>
           <Dashboard/>
           <Footer/>
         </React.Fragment>

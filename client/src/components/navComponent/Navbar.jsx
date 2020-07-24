@@ -10,7 +10,7 @@ import './navbar.css';
       <Router>
         <nav className="nav-wrapper grey darken-3">
           <div className="container">
-            <Link style={{ textDecoration: 'none' }} to='/' className="brand-logo">MarioPlan</Link>
+            <Link style={{ textDecoration: 'none' }} to='/' className="brand-logo">BookLibrary</Link>
             <SignedInLinks />
             <SignedOutLinks />
           </div>
