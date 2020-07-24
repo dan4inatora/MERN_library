@@ -4,11 +4,11 @@ import Register from './components/registerComponent/Register';
 import Navbar from './components/navComponent/Navbar';
 import Dashboard from './components/Dashboard';
 import Footer from './components/footerComponent/Footer';
-import Welcome from './components/Welcome';
+import Welcome from './components/welcomeComponent/Welcome';
 import './App.css';
 import { Provider } from 'react-redux';
 import store from './store';
-import {Route, BrowserRouter as Router, Switch} from 'react-router-dom'
+import {Route, BrowserRouter as Router} from 'react-router-dom'
 
 class App extends Component {
   render(){
