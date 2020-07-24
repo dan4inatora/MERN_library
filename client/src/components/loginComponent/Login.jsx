@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import {Link} from 'react-router-dom'
 
 export default class Login extends Component {
   constructor(props) {
@@ -48,33 +49,35 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div class="content">
-      <section>
-        <div class="register-wrapper">
-          <div class="register-block">
-            <h3 class="register-title">Login into account</h3>
-              <p>Login by filling in the form.</p>
-              <form action="" onSubmit={this.handleSubmit}>
-              <input             
-                    type="email"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.handleChange}
-                    required
-                    placeholder="Enter your email"/>
-              <input             
-                    type="password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                    required 
-                    placeholder="Enter your password" />
-              <input type="submit" value="Log in"/>
-              </form>
+      
+        <div class="content">
+        <section>
+          <div class="register-wrapper">
+            <div class="register-block">
+              <h3 class="register-title">Login into account</h3>
+                <Link to='/login' style={{color:'#424242'}}>Haven't signed up</Link>
+                <form action="" onSubmit={this.handleSubmit}>
+                <input             
+                      type="email"
+                      name="email"
+                      value={this.state.email}
+                      onChange={this.handleChange}
+                      required
+                      placeholder="Enter your email"/>
+                <input             
+                      type="password"
+                      name="password"
+                      value={this.state.password}
+                      onChange={this.handleChange}
+                      required 
+                      placeholder="Enter your password" />
+                <input type="submit" value="Log in"/>
+                </form>
+            </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+    
     );
   }
 }

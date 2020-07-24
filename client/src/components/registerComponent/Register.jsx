@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import './register.css'
+import {Link} from 'react-router-dom'
 
 
 export default class Registration extends Component {
@@ -52,41 +53,42 @@ export default class Registration extends Component {
 
   render() {
     return (
-
-    <div class="content">
-      <section>
-        <div class="register-wrapper">
-          <div class="register-block">
-            <h3 class="register-title">Create an account</h3>
-              <p>Create an account using the form below.</p>
-              <form action="" onSubmit={this.handleSubmit}>
-              <input                 
-                    type="username"
-                    name="username"
-                    value={this.state.username}
-                    onChange={this.handleChange}
-                    required
-                    placeholder="Enter your username" />
-              <input             
-                    type="email"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.handleChange}
-                    required
-                    placeholder="Enter your email"/>
-              <input             
-                    type="password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                    required 
-                    placeholder="Enter your password" />
-              <input type="submit" value="Create my account"/>
-              </form>
+      
+      <div class="content">
+        <section>
+          <div class="register-wrapper">
+            <div class="register-block">
+              <h3 class="register-title">Create an account</h3>
+              <Link to='/login' style={{color:'#424242'}}>Want to log in</Link>
+                <form action="" onSubmit={this.handleSubmit}>
+                <input                 
+                      type="username"
+                      name="username"
+                      value={this.state.username}
+                      onChange={this.handleChange}
+                      required
+                      placeholder="Enter your username" />
+                <input             
+                      type="email"
+                      name="email"
+                      value={this.state.email}
+                      onChange={this.handleChange}
+                      required
+                      placeholder="Enter your email"/>
+                <input             
+                      type="password"
+                      name="password"
+                      value={this.state.password}
+                      onChange={this.handleChange}
+                      required 
+                      placeholder="Enter your password" />
+                <input type="submit" value="Create my account"/>
+                </form>
+            </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+    
 
     );
   }

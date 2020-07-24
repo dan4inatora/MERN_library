@@ -8,22 +8,21 @@ import Welcome from './components/Welcome';
 import './App.css';
 import { Provider } from 'react-redux';
 import store from './store';
-//import 'bootstrap/dist/js/bootstrap.bundle.min';
-
-
+import {Route, BrowserRouter as Router, Switch} from 'react-router-dom'
 
 class App extends Component {
   render(){
     return(
       <Provider store={store}>
-        <React.Fragment>
-          <Navbar/>
-          <Welcome/>
-          <Login/>
-          
-          <Dashboard/>
-          <Footer/>
-        </React.Fragment>
+        <Router>
+          <React.Fragment>
+            <Navbar/>
+              <Route  exact path='/' component={Welcome}/>
+              <Route path='/login' component={Login}/>
+              <Route path='/register' component={Register}/>      
+            <Footer/>
+          </React.Fragment>
+        </Router>
       </Provider>
     )
   } 
