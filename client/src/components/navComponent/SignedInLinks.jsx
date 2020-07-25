@@ -25,12 +25,20 @@ class SignedInLinks extends Component {
             <li><NavLink to='/authors' style={{ textDecoration: 'none' }}>Authors</NavLink></li>
             <li onClick={this.handleClick}><NavLink to='/' style={{ textDecoration: 'none' }}>Log Out</NavLink></li>
             <li ><NavLink to='/wishlist' className="btn btn-floating pink lighten-1" style={{ textDecoration: 'none' }}>Wish</NavLink></li>
-            {this.props.crrUser !== undefined ? <li>{"Hi, " + this.props.crrUser.name}</li> : <li></li>}
+            {!isEmpty(this.props.crrUser) ? <li>{"Hi, " + this.props.crrUser.name}</li> : <li></li>}
           </ul>
         </div>
       
     )
   }
+}
+
+function isEmpty(obj) {
+  for(var key in obj) {
+      if(obj.hasOwnProperty(key))
+          return false;
+  }
+  return true;
 }
 
 SignedInLinks.propTypes = {
