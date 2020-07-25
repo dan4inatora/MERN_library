@@ -60,9 +60,9 @@ class Registration extends Component {
             <div className="register-block">
 
               <h3 className="register-title">Create an account</h3>
-              <div>{this.props.errors.map(error => (
+              <div>{this.props.errors !== undefined ? this.props.errors.map(error => (
                   <p key={Math.random(2)} className="pis">{error}</p>
-            ))}
+               )) : <li></li>}
             </div>
               <Link to='/login' style={{color:'#424242'}}>Want to log in</Link>
                 <form action="" onSubmit={this.handleSubmit}>
@@ -101,8 +101,6 @@ class Registration extends Component {
 
 Registration.propTypes = {
   registerUser: PropTypes.func.isRequired,
-  errors: PropTypes.array.isRequired,
-  clearErrors: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({

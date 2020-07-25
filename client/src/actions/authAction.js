@@ -5,7 +5,7 @@ import axios from 'axios';
 
 export function registerUser(userData){
   return function(dispatch){
-    axios.post("http://localhost:3000/api/register", userData)
+    axios.post("http://localhost:3000/api/register", userData, { withCredentials: true })
       .then(user => dispatch({
         type : REGISTER_USER,
         payload : user.data
@@ -35,8 +35,10 @@ export function clearErrors(){
 
 export function logoutUser(){
   return function(dispatch){
-    dispatch({
-      type: LOGOUT_USER
-    })
-  }
+    axios.post("http://localhost:3000/api/logout", {}, { withCredentials: true })
+      .then(res => dispatch({
+        type : LOGOUT_USER,
+      }))
+      .catch(err => console.log(err));
+   }
 }
