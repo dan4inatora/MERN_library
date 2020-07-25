@@ -1,7 +1,7 @@
 import {LOGIN_USER, LOGOUT_USER, REGISTER_USER, CLEAR_ERRORS} from './types';
 import axios from 'axios';
 
-
+//axios.defaults.withCredentials = true;
 
 export function registerUser(userData){
   return function(dispatch){
@@ -16,7 +16,7 @@ export function registerUser(userData){
 
 export function loginUser(userData){
   return function(dispatch){
-    axios.post("http://localhost:3000/api/login", userData)
+    axios.post("http://localhost:3000/api/login", userData, { withCredentials: true })
       .then(user => dispatch({
         type : LOGIN_USER,
         payload : user.data
