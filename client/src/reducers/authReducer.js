@@ -32,22 +32,19 @@ export default function(state = initialState, action){
           ...state,
           registerValidationError: [...state.registerValidationError, ...action.payload]
         }
-      }
-      
+      }  
       return{
         state
-      }
-      
-
-    case LOGOUT_USER:
-      return{
-        ...state, 
-        loggedInUser : [action.payload, ...state.items]
       }
     case CLEAR_ERRORS:
       return{
         ...state,
         registerValidationError : []
+      }
+    case LOGOUT_USER:
+      return{
+        ...state,
+        loggedUser: {}
       }
     default:
       return state;

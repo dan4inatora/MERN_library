@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Login from './components/loginComponent/Login';
 import Register from './components/registerComponent/Register';
 import Navbar from './components/navComponent/Navbar';
@@ -16,7 +16,7 @@ function App  () {
       <Provider store={store}>
         <Router>
           <React.Fragment>
-            <Navbar/>
+            <Navbar history={history}/>
               <Route  exact path='/' component={Welcome}/>
               <Route history={history} path='/login' component={Login}/>
               <Route path='/register' component={Register}/> 

@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import {connect} from 'react-redux';
 import {loginUser} from '../../actions/authAction';
 import {clearErrors} from '../../actions/authAction';
-import {Link, Redirect,withRouter} from 'react-router-dom'
+import {Link,withRouter} from 'react-router-dom'
 import PropTypes from 'prop-types';
-import axios from 'axios';
 
 class Login extends Component {
   constructor(props) {

@@ -12,7 +12,7 @@ import './navbar.css';
           <div className="container">
             <Link style={{ textDecoration: 'none' }} to='/' className="brand-logo">BookLibrary</Link>
             <SignedInLinks />
-            <SignedOutLinks />
+            <SignedOutLinks history={this.props.history}/>
           </div>
         </nav>
 
