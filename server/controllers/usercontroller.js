@@ -20,7 +20,7 @@ module.exports.login = async (req, res, next) => {
     { session: true },
     async (err, user, info) => {
       if (err) {
-        return res.status(400).json(err);
+        return res.send(err);
       } else if (user) {
         try {
           await req.logIn(user, err => {
@@ -29,12 +29,12 @@ module.exports.login = async (req, res, next) => {
             }
           });
           //console.log(req.session);
-          return res.status(200).send({ user });
+          return res.send(user);
         } catch (err) {
           return next(err);
         }
       } else {
-        return res.status(404).json(info);
+        return res.send("No such user");
       }
     }
   )(req, res, next);

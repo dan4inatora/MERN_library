@@ -1,8 +1,12 @@
 import React, { Component } from "react";
-import axios from "axios";
+import {connect} from 'react-redux';
+import {loginUser} from '../../actions/authAction';
+import {clearErrors} from '../../actions/authAction';
 import {Link} from 'react-router-dom'
+import PropTypes from 'prop-types';
+import axios from 'axios';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -17,6 +21,7 @@ export default class Login extends Component {
   }
 
   handleChange(event) {
+    this.props.clearErrors();
     this.setState({
       [event.target.name]: event.target.value
     });
@@ -24,37 +29,33 @@ export default class Login extends Component {
 
   handleSubmit(event) {
     const { email, password } = this.state;
-
-    axios
-      .post(
-        "http://localhost:3001/sessions",
-        {
-          user: {
-            email: email,
-            password: password
-          }
-        },
-        { withCredentials: true }
-      )
-      .then(response => {
-        if (response.data.logged_in) {
-          this.props.handleSuccessfulAuth(response.data);
-        }
-      })
-      .catch(error => {
-        console.log("login error", error);
-      });
     event.preventDefault();
+    const user = {
+      email,
+      password
+    }
+
+    this.props.loginUser(user)
+
+    this.setState({
+      email: "",
+      password: ""
+    });
+    
   }
 
   render() {
     return (
       
-        <div class="content">
+        <div className="content">
         <section>
-          <div class="register-wrapper">
-            <div class="register-block">
-              <h3 class="register-title">Login into account</h3>
+          <div className="register-wrapper">
+            <div className="register-block">
+              <h3 className="register-title">Login into account</h3>
+              <div>{this.props.errors.map(error => (
+                  <p key={Math.random(2)} className="pis">{error}</p>
+                   ))}
+              </div>
                 <Link to='/register' style={{color:'#424242'}}>Haven't signed up</Link>
                 <form action="" onSubmit={this.handleSubmit}>
                 <input             
@@ -81,3 +82,17 @@ export default class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  errors: PropTypes.array.isRequired,
+  clearErrors: PropTypes.func.isRequired
+}
+
+const mapStateToProps = (state) => ({
+  errors: state.auth.registerValidationError
+})
+
+//There are no mapStatetoProps because we dont need state here
+
+export default connect(mapStateToProps, {loginUser, clearErrors})(Login);
