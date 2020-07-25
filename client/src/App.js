@@ -2,7 +2,7 @@ import React from 'react';
 import Login from './components/loginComponent/Login';
 import Register from './components/registerComponent/Register';
 import Navbar from './components/navComponent/Navbar';
-import Dashboard from './components/Dashboard';
+import Dashboard from './components/dashboardComponent/Dashboard';
 import Footer from './components/footerComponent/Footer';
 import Welcome from './components/welcomeComponent/Welcome';
 import './App.css';

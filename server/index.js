@@ -1,6 +1,7 @@
 require("dotenv").config();
 require("./models/db");
 require("./config/passportConfig");
+const path = require('path')
 const routesIndex = require("./routes/mainRouter");
 
 
@@ -23,7 +24,8 @@ client.on("connect", function() {
 });
 
 //Static files
-app.use(express.static('./uploads'));
+app.use('/uploads', express.static(__dirname + '/uploads'));
+//app.use('/', express.static('./uploads'));
 
 app
   .use(express.json())

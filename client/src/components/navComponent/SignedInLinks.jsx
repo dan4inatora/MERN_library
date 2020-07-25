@@ -21,7 +21,7 @@ class SignedInLinks extends Component {
       return (
         <div>
           <ul className="right">
-            <li><NavLink to='/books' style={{ textDecoration: 'none' }}>Books</NavLink></li>
+            <li><NavLink to='/dashboard' style={{ textDecoration: 'none' }}>Books</NavLink></li>
             <li><NavLink to='/authors' style={{ textDecoration: 'none' }}>Authors</NavLink></li>
             <li onClick={this.handleClick}><NavLink to='/' style={{ textDecoration: 'none' }}>Log Out</NavLink></li>
             <li ><NavLink to='/wishlist' className="btn btn-floating pink lighten-1" style={{ textDecoration: 'none' }}>Wish</NavLink></li>

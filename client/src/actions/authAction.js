@@ -42,3 +42,4 @@ export function logoutUser(){
       .catch(err => console.log(err));
    }
 }
+

@@ -1,5 +1,21 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:900i&display=swap');
 
+.h3{
+  color:white !important;
+  text-align: center !important;
+  display: block !important;
+  width: 100% !important;
+  margin-left: 50% !important;
+}
+
+.h5 {
+  color:white;
+  width: 20%;
+  margin: auto;
+  display: block;
+  text-align: center;
+}
+
 .App {
   text-align: center;
 }
