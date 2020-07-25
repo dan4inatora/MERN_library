@@ -8,24 +8,25 @@ import Welcome from './components/welcomeComponent/Welcome';
 import './App.css';
 import { Provider } from 'react-redux';
 import store from './store';
-import {Route, BrowserRouter as Router} from 'react-router-dom'
+import {Route, BrowserRouter as Router, useHistory} from 'react-router-dom'
 
-class App extends Component {
-  render(){
+function App  () {
+    let history = useHistory();
     return(
       <Provider store={store}>
         <Router>
           <React.Fragment>
             <Navbar/>
               <Route  exact path='/' component={Welcome}/>
-              <Route path='/login' component={Login}/>
-              <Route path='/register' component={Register}/>      
+              <Route history={history} path='/login' component={Login}/>
+              <Route path='/register' component={Register}/> 
+              <Route path='/dashboard' component={Dashboard}/>      
             <Footer/>
           </React.Fragment>
         </Router>
       </Provider>
     )
-  } 
+  
 }
 
 export default App;

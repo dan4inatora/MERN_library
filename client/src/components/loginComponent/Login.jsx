@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {connect} from 'react-redux';
 import {loginUser} from '../../actions/authAction';
 import {clearErrors} from '../../actions/authAction';
-import {Link} from 'react-router-dom'
+import {Link, Redirect,withRouter} from 'react-router-dom'
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
@@ -15,7 +15,7 @@ class Login extends Component {
       password: "",
       loginErrors: ""
     };
-
+    
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -42,11 +42,17 @@ class Login extends Component {
       password: ""
     });
     
+    console.log(this.props.crrUser)
+    if(this.props.crrUser !== undefined){
+      console.log(1);
+      this.props.history.push('/dashboard');
+    }
+    
   }
 
   render() {
     return (
-      
+
         <div className="content">
         <section>
           <div className="register-wrapper">
@@ -86,13 +92,15 @@ class Login extends Component {
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
   errors: PropTypes.array.isRequired,
-  clearErrors: PropTypes.func.isRequired
+  clearErrors: PropTypes.func.isRequired,
+  crrUser: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = (state) => ({
-  errors: state.auth.registerValidationError
+  errors: state.auth.registerValidationError,
+  crrUser: state.auth.loggedUser
 })
 
 //There are no mapStatetoProps because we dont need state here
 
-export default connect(mapStateToProps, {loginUser, clearErrors})(Login);
+export default withRouter(connect(mapStateToProps, {loginUser, clearErrors})(Login));
