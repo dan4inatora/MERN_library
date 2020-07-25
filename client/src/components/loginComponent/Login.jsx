@@ -55,7 +55,7 @@ export default class Login extends Component {
           <div class="register-wrapper">
             <div class="register-block">
               <h3 class="register-title">Login into account</h3>
-                <Link to='/login' style={{color:'#424242'}}>Haven't signed up</Link>
+                <Link to='/register' style={{color:'#424242'}}>Haven't signed up</Link>
                 <form action="" onSubmit={this.handleSubmit}>
                 <input             
                       type="email"

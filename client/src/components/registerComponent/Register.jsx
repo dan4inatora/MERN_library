@@ -1,17 +1,21 @@
 import React, { Component } from "react";
-import axios from "axios";
+import {connect} from 'react-redux';
+import {registerUser} from '../../actions/authAction';
+import {clearErrors} from '../../actions/authAction';
 import './register.css'
 import {Link} from 'react-router-dom'
+import PropTypes from 'prop-types';
 
 
-export default class Registration extends Component {
+
+class Registration extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       email: "",
       password: "",
-      username: "",
+      name: "",
       registrationErrors: ""
     };
 
@@ -20,51 +24,52 @@ export default class Registration extends Component {
   }
 
   handleChange(event) {
+    this.props.clearErrors();
     this.setState({
       [event.target.name]: event.target.value
     });
   }
 
   handleSubmit(event) {
-    const { email, password, password_confirmation } = this.state;
-
-    axios
-      .post(
-        "http://localhost:3001/registrations",
-        {
-          user: {
-            email: email,
-            password: password,
-            password_confirmation: password_confirmation
-          }
-        },
-        { withCredentials: true }
-      )
-      .then(response => {
-        if (response.data.status === "created") {
-          this.props.handleSuccessfulAuth(response.data);
-        }
-      })
-      .catch(error => {
-        console.log("registration error", error);
-      });
+    const { email, password, name } = this.state;
     event.preventDefault();
+    const user = {
+      name,
+      email,
+      password,
+      isAdmin : 0    
+    }
+
+    this.props.registerUser(user);
+    
+    this.setState({
+      email: "",
+      password: "",
+      name: "",
+      registrationErrors: ""
+    });
+    
   }
 
   render() {
     return (
       
-      <div class="content">
+      <div className="content">
         <section>
-          <div class="register-wrapper">
-            <div class="register-block">
-              <h3 class="register-title">Create an account</h3>
+          <div className="register-wrapper">
+            <div className="register-block">
+
+              <h3 className="register-title">Create an account</h3>
+              <div>{this.props.errors.map(error => (
+                  <p key={Math.random(2)} className="pis">{error}</p>
+            ))}
+            </div>
               <Link to='/login' style={{color:'#424242'}}>Want to log in</Link>
                 <form action="" onSubmit={this.handleSubmit}>
                 <input                 
-                      type="username"
-                      name="username"
-                      value={this.state.username}
+                      type="text"
+                      name="name"
+                      value={this.state.name}
                       onChange={this.handleChange}
                       required
                       placeholder="Enter your username" />
@@ -93,3 +98,17 @@ export default class Registration extends Component {
     );
   }
 }
+
+Registration.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  errors: PropTypes.array.isRequired,
+  clearErrors: PropTypes.func.isRequired
+}
+
+const mapStateToProps = (state) => ({
+  errors: state.auth.registerValidationError
+})
+
+//There are no mapStatetoProps because we dont need state here
+
+export default connect(mapStateToProps, {registerUser, clearErrors})(Registration);

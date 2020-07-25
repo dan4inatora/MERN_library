@@ -12,7 +12,7 @@ function register(req, res, next){
         res.send(doc);
       } else {
         if (err.code == 11000) {
-          res.status(422).send("Duplicate email");
+          res.send("Duplicate email");
         } else {
           //res.send(err);
           return next(err);

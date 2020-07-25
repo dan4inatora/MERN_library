@@ -3,8 +3,8 @@ const auth = require('../middleware/authenticate')
 const express = require('express');
 const router = express.Router();
 
-router.post('/register', auth.isAuthenticated, userController.register);
-router.post('/login', auth.isAuthenticated ,userController.login);
+router.post('/register', userController.register);
+router.post('/login' ,userController.login);
 router.post('/edit', auth.isAuthenticated , userController.edit);
 router.post('/logout' , auth.isAuthenticated, userController.logout);
 router.get('/userProfile' , auth.isAuthenticated, userController.userProfile);

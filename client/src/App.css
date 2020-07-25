@@ -1,9 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:900i&display=swap');
+
 .App {
   text-align: center;
 }
-
+.pis{
+  color: red;
+  display: inline-block;
+  size: 0.5rem;
+  margin:auto;
+  padding: auto;
+}
 body{
   background-image: linear-gradient(135deg, #007991 30%, #78ffd6 90%);
+  font-family: 'Montserrat', sans-serif;
  }
 
 .App-logo {
