@@ -4,34 +4,42 @@ import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {getBooks} from '../../actions/booksActions';
-import axios from 'axios'
+import {getBook} from '../../actions/booksActions';
+
 
 const backend = 'http://localhost:3000/';
 
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleClick = this.handleClick.bind(this);
+  }
 
   componentDidMount(){
-
     this.props.getBooks();
   }
 
+  handleClick(id){
+    this.props.getBook(id);
+  }
 
   render() {
-    console.log('rendering');
+    
     return (
       <div>
          
         <h3 className="h4">Book Gallery</h3>
         <h6 className="h6" >See what book suits you the best.</h6>
         {this.props.books ? this.props.books.map(book => 
-          (<p key={book._id}>{
-            <div className="gallery">
-            <a target="_blank" href="img_5terre.jpg">
+          (<div key={book._id}>{
+            <div className="gallery" onClick={() => this.handleClick(book._id)}>
+            <Link to='/bookView'>
               <img src={`${backend}${book.imagePath}`} alt={`${book.name}`} width="600" height="400"/>
-            </a>
+            </Link>
           <div className="desc">{`${book.name}`}</div>
           </div>
-          }</p>)): <p></p>} 
+          }</div>)): <p></p>} 
       </div>
     )
   }
@@ -45,4 +53,4 @@ const mapStateToProps = (state) => ({
   books: state.bookz.books
 })
 
-export default connect(mapStateToProps, {getBooks})(Dashboard);
+export default connect(mapStateToProps, {getBooks, getBook})(Dashboard);

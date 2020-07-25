@@ -43,7 +43,7 @@ class Login extends Component {
     
     console.log(this.props.crrUser)
     if(this.props.crrUser !== undefined){
-      //this.props.history.push('/dashboard');
+      this.props.history.push('/dashboard');
     }
     
   }

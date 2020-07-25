@@ -5,6 +5,7 @@ import Navbar from './components/navComponent/Navbar';
 import Dashboard from './components/dashboardComponent/Dashboard';
 import Footer from './components/footerComponent/Footer';
 import Welcome from './components/welcomeComponent/Welcome';
+import bookComponent from './components/bookView/bookComponent';
 import './App.css';
 import { Provider } from 'react-redux';
 import store from './store';
@@ -20,7 +21,8 @@ function App  () {
               <Route  exact path='/' component={Welcome}/>
               <Route history={history} path='/login' component={Login}/>
               <Route path='/register' component={Register}/> 
-              <Route path='/dashboard' component={Dashboard}/>      
+              <Route path='/dashboard' component={Dashboard}/>
+              <Route path='/bookView' component={bookComponent}/>       
             <Footer/>
           </React.Fragment>
         </Router>

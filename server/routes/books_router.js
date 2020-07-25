@@ -9,7 +9,7 @@ booksRouter.post('/comment', auth.isAuthenticated ,commentscontoller.comment);
 booksRouter.post('/addBook' , authAdmin.isAdmin ,booksController.createBook);
 //Auth to do
 booksRouter.get('/books' , booksController.getBooks);
-booksRouter.get('/books/:id' , auth.isAuthenticated, booksController.getBookById);
+booksRouter.get('/books/:id' , booksController.getBookById);
 booksRouter.get('/booksByName/:name' , auth.isAuthenticated, booksController.getBookByName);
 booksRouter.get('/bookAuthor/:id' , auth.isAuthenticated, booksController.getBookAuthor);
 booksRouter.get('/getAvarage/:bookId' , auth.isAuthenticated, booksController.getAvgRating);
